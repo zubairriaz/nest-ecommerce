@@ -1,14 +1,15 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ProductsModule } from './products/products.module';
-import { OrdersModule } from './orders/orders.module';
-import { CategoriesModule } from './categories/categories.module';
+import { ProductsModule } from './modules/products/products.module';
+import { OrdersModule } from './modules/orders/orders.module';
+import { CategoriesModule } from './modules/categories/categories.module';
 import { AuthenticationService } from './services/authentication/authentication.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Product } from './entities/Product';
+import { LoggerMiddleware } from './common/middlewares/logger.middleware';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -22,7 +23,7 @@ import { Product } from './entities/Product';
           useNewUrlParser: true,
           synchronize: true,
           logging: true,
-          entities:[Product]
+          entities: [Product],
         };
       },
     }),
@@ -33,4 +34,8 @@ import { Product } from './entities/Product';
   controllers: [AppController],
   providers: [AppService, AuthenticationService],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes('*');
+  }
+}
