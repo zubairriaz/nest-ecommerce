@@ -1,0 +1,96 @@
+{
+  "projectType": "application",
+  "root": "apps/ng-commerce",
+  "sourceRoot": "apps/ng-commerce/src",
+  "prefix": "e-commerce",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/ng-commerce",
+        "index": "apps/ng-commerce/src/index.html",
+        "main": "apps/ng-commerce/src/main.ts",
+        "polyfills": "apps/ng-commerce/src/polyfills.ts",
+        "tsConfig": "apps/ng-commerce/tsconfig.app.json",
+        "assets": [
+          "apps/ng-commerce/src/favicon.ico",
+          "apps/ng-commerce/src/assets"
+        ],
+        "styles": ["apps/ng-commerce/src/styles.css"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/ng-commerce/src/environments/environment.ts",
+              "with": "apps/ng-commerce/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "ng-commerce:build:production"
+        },
+        "development": {
+          "browserTarget": "ng-commerce:build:development"
+        }
+      },
+      "defaultConfiguration": "development",
+      "options": {
+        "proxyConfig": "apps/ng-commerce/proxy.conf.json"
+      }
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "ng-commerce:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/ng-commerce/src/**/*.ts",
+          "apps/ng-commerce/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/ng-commerce"],
+      "options": {
+        "jestConfig": "apps/ng-commerce/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
