@@ -8,7 +8,6 @@ export class ProductController {
 
   @Get()
   getProducts() {
-    throw new Error('unhandled excption');
     return this.productService.getProducts();
   }
 

@@ -10,6 +10,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Product } from './entities/Product';
 import { LoggerMiddleware } from './common/middlewares/logger.middleware';
+import { Category } from './entities/Category';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -21,9 +22,9 @@ import { LoggerMiddleware } from './common/middlewares/logger.middleware';
           type: 'mongodb',
           url: configService.get('Mongo_URI'),
           useNewUrlParser: true,
-          synchronize: true,
+          synchronize: false,
           logging: true,
-          entities: [Product],
+          entities: [Product, Category],
         };
       },
     }),

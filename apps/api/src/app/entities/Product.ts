@@ -1,4 +1,5 @@
-import {Entity, ObjectID, ObjectIdColumn, Column} from "typeorm"; 
+import {Entity, ObjectID, ObjectIdColumn, Column, ManyToMany, JoinTable} from "typeorm"; 
+import {Category} from './Category';
 
 @Entity() 
 export class Product {  
@@ -16,5 +17,9 @@ export class Product {
    Price: number
 
    @Column()
-   discount: number
+   Discount: number
+
+   @Column((_)=>Category)
+   Categories:Category[]
+
 }
