@@ -11,6 +11,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { Product } from './entities/Product';
 import { LoggerMiddleware } from './common/middlewares/logger.middleware';
 import { Category } from './entities/Category';
+import { Order } from './entities/Order';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -24,7 +25,7 @@ import { Category } from './entities/Category';
           useNewUrlParser: true,
           synchronize: false,
           logging: true,
-          entities: [Product, Category],
+          entities: [Product, Category, Order],
         };
       },
     }),

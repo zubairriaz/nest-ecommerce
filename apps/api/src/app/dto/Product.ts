@@ -1,6 +1,9 @@
-import { IsNotEmpty, IsNumber, MaxLength } from 'class-validator';
+import { IsNotEmpty, IsNumber, MaxLength, IsUUID, IsOptional } from 'class-validator';
 import { Category } from './Categories';
 export class Product {
+  @IsOptional()
+  @IsUUID()
+  id:string
   @IsNotEmpty()
   Name: string;
   @MaxLength(400)
@@ -8,5 +11,5 @@ export class Product {
   @IsNumber()
   Price: number;
   Discount: number;
-  categories: Category[]
+  Categories: Category[]
 }
