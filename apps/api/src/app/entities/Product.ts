@@ -1,12 +1,13 @@
-import {Entity, ObjectID, ObjectIdColumn, Column, ManyToMany, JoinTable} from "typeorm"; 
+import {Entity, ObjectID, ObjectIdColumn, Column} from "typeorm"; 
 import {Category} from './Category';
 
 @Entity() 
 export class Product {  
 
    @ObjectIdColumn() 
-   id: ObjectID; 
-   
+   id: ObjectID;
+   @Column() 
+   uuid: string
    @Column() 
    Name: string; 
    

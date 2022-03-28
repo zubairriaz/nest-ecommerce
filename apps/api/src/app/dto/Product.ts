@@ -1,9 +1,11 @@
-import { IsNotEmpty, IsNumber, MaxLength, IsUUID, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsNumber, MaxLength, IsUUID, IsDefined, IsMongoId } from 'class-validator';
 import { Category } from './Categories';
 export class Product {
-  @IsOptional()
-  @IsUUID()
+  @IsMongoId()
   id:string
+  @IsDefined()
+  @IsUUID()
+  uuid:string
   @IsNotEmpty()
   Name: string;
   @MaxLength(400)
