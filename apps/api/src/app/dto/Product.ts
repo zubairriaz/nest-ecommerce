@@ -15,3 +15,15 @@ export class Product {
   Discount: number;
   Categories: Category[]
 }
+
+
+export class UpdateProductDto{
+  @IsNotEmpty()
+  Name: string;
+  @MaxLength(400)
+  Description: string;
+  @IsNumber()
+  Price: number;
+  Discount: number;
+  Categories: Category[]
+}

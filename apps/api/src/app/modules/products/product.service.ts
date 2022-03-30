@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Product } from '../../dto/Product';
+import { Product, UpdateProductDto } from '../../dto/Product';
 import { Product as ProductEntity } from '../../entities/Product';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -17,11 +17,15 @@ export class ProductService {
   }
 
   getSingleProduct(id) {
-    return this.productRepo.findBy({ "uuid": id });
+    return this.productRepo.findBy({ uuid: id });
   }
 
   deleteSingleProduct(id) {
-    return this.productRepo.delete({'uuid' : id});
+    return this.productRepo.delete({ uuid: id });
+  }
+
+  updateProduct(id, product: UpdateProductDto) {
+    return this.productRepo.update({ uuid: id }, product);
   }
 
   saveProduct(dto: Product) {
