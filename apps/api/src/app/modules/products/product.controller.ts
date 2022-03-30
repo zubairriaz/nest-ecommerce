@@ -6,10 +6,13 @@ import {
   Param,
   Post,
   Put,
+  UseGuards
 } from '@nestjs/common';
 import { Product, UpdateProductDto } from '../../dto/Product';
 import { ProductService } from './product.service';
+import {AuthGuard} from '@nestjs/passport'
 
+@UseGuards(AuthGuard('jwt'))
 @Controller('products')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}

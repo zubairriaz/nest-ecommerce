@@ -30,9 +30,7 @@ export class AuthService {
 
   async loginUser(dto: LoginDto): Promise<UserResponseDto> {
     const { Email, Password } = dto;
-    
     const user = await this.userRepo.findOneBy({ Email: Email });
-    console.log(user);
     if (!user)
       throw new HttpException(
         'No account information was found against this email',
