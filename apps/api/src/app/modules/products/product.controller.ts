@@ -15,11 +15,11 @@ import {
 import { Product, UpdateProductDto } from '../../dto/Product';
 import { ProductService } from './product.service';
 import { AuthGuard } from '@nestjs/passport';
-import { S3ManagerService } from '../../services/authentication/AWS/Aws.s3';
+import { S3ManagerService } from '../../services/AWS/Aws.s3';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { identifierName } from '@angular/compiler';
 
-//@UseGuards(AuthGuard('jwt'))
+@UseGuards(AuthGuard('jwt'))
 @Controller('products')
 export class ProductController {
   constructor(

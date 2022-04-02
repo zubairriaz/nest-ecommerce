@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ProductController } from './product.controller';
 import { Product } from '../../entities/Product';
 import { ProductService } from './product.service';
-import { S3ManagerService } from '../../services/authentication/AWS/Aws.s3';
+import { S3ManagerService } from '../../services/AWS/Aws.s3';
 
 @Module({
   imports:[TypeOrmModule.forFeature([Product])],
