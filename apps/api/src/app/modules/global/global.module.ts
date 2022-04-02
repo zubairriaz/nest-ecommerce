@@ -1,6 +1,11 @@
 import { Global, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { JwtModule, JwtService } from '@nestjs/jwt';
+import { JwtModule } from '@nestjs/jwt';
+import { AwsSdkModule } from 'nest-aws-sdk';
+import { SharedIniFileCredentials, S3  } from 'aws-sdk';
+
+
+
 @Global()
 @Module({
   imports: [
@@ -17,8 +22,17 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
         };
       },
     }),
+    AwsSdkModule.forRoot({
+      defaultServiceOptions: {
+        region: 'us-east-1',
+        credentials: new SharedIniFileCredentials({
+          profile: 'default',
+        }),
+      },
+      services: [S3],
+    }),
   ],
- 
-  exports:[ConfigModule, JwtModule]
+
+  exports: [ConfigModule, JwtModule, AwsSdkModule],
 })
 export class GlobalModule {}

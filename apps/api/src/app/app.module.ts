@@ -14,8 +14,12 @@ import { Order } from './entities/Order';
 import { AuthModule } from './modules/auth/auth.module';
 import { User } from './entities/User';
 import { GlobalModule } from './modules/global/global.module';
+import { MulterModule } from '@nestjs/platform-express';
 @Module({
   imports: [
+    MulterModule.register({
+      dest: './files',
+    }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
