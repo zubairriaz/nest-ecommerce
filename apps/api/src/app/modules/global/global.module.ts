@@ -2,7 +2,7 @@ import { Global, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { AwsSdkModule } from 'nest-aws-sdk';
-import { SharedIniFileCredentials, S3  } from 'aws-sdk';
+import { SharedIniFileCredentials, S3, CognitoIdentityServiceProvider  } from 'aws-sdk';
 
 
 
@@ -29,7 +29,7 @@ import { SharedIniFileCredentials, S3  } from 'aws-sdk';
           profile: 'default',
         }),
       },
-      services: [S3],
+      services: [S3, CognitoIdentityServiceProvider],
     }),
   ],
 

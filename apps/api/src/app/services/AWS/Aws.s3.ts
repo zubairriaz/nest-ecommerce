@@ -47,4 +47,15 @@ export class S3ManagerService {
       });
     });
   }
+
+  async getSignedUrl(path){
+    const params = {
+      Bucket: this.bucketName,
+      Key: path,
+      Expires: 3600,
+    };
+    const returnedValue = await this.s3.getSignedUrlPromise('getObject', params);
+    console.log(returnedValue)
+    return returnedValue;
+  }
 }

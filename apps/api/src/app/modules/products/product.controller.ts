@@ -9,7 +9,6 @@ import {
   UseGuards,
   UseInterceptors,
   UploadedFile,
-  UploadedFiles,
   Res,
 } from '@nestjs/common';
 import { Product, UpdateProductDto } from '../../dto/Product';
@@ -17,14 +16,15 @@ import { ProductService } from './product.service';
 import { AuthGuard } from '@nestjs/passport';
 import { S3ManagerService } from '../../services/AWS/Aws.s3';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { identifierName } from '@angular/compiler';
+import { CognitoService } from '../../services/AWS/Aws.cognito';
 
 @UseGuards(AuthGuard('jwt'))
 @Controller('products')
 export class ProductController {
   constructor(
     private readonly productService: ProductService,
-    private readonly s3Service: S3ManagerService
+    private readonly s3Service: S3ManagerService,
+    private readonly cognitoService: CognitoService
   ) {}
 
   @Get()
@@ -56,5 +56,19 @@ export class ProductController {
   async upload(@UploadedFile() file, @Param('id') id,  @Res() res) {
     const returnValue =  await this.s3Service.uploadImage('product', id, file);
     return res.send({value: returnValue});
+  }
+
+  @Post('signed-url')
+  async getSignedUrl(@Body('id') id, @Res() res) {
+    console.log(id);
+    const signedUrl =  await this.s3Service.getSignedUrl(id);
+    return res.send({url: signedUrl});
+  }
+
+  @Post('verify_token')
+  async verifyToken(@Body('id') id, @Res() res) {
+    console.log(id);
+    const result = this.cognitoService.verifyToken(id);
+    res.send({result});
   }
 }

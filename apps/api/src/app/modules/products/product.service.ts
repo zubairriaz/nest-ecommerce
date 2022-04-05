@@ -9,7 +9,7 @@ import { v4 as uuidv4 } from 'uuid';
 export class ProductService {
   constructor(
     @InjectRepository(ProductEntity)
-    private readonly productRepo: Repository<ProductEntity>
+    private readonly productRepo: Repository<ProductEntity>,
   ) {}
 
   getProducts() {
@@ -28,7 +28,7 @@ export class ProductService {
     return this.productRepo.update({ uuid: id }, product);
   }
 
-  saveProduct(dto: Product) {
+  async saveProduct(dto: Product) {
     dto.uuid = uuidv4();
     return this.productRepo.save(dto);
   }

@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, MaxLength, IsUUID, IsDefined, IsMongoId } from 'class-validator';
+import { IsNotEmpty, IsNumber, MaxLength, IsUUID, IsDefined, IsMongoId, IsUrl } from 'class-validator';
 import { Category } from './Categories';
 export class Product {
   @IsMongoId()
@@ -14,6 +14,12 @@ export class Product {
   Price: number;
   Discount: number;
   Categories: Category[]
+  Photos: Photo[]
+}
+
+export class Photo{
+  @IsUrl()
+  url: string
 }
 
 
@@ -26,4 +32,5 @@ export class UpdateProductDto{
   Price: number;
   Discount: number;
   Categories: Category[]
+  Photos: Photo[]
 }

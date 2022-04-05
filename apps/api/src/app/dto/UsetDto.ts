@@ -9,12 +9,13 @@ import {
 import { Roles } from '../common/enums';
 
 export class UserDto {
-  constructor(firstName: string, lastName: string, role: Roles, uuid: string) {
+  constructor(firstName?: string, lastName?: string, role?: Roles, uuid?: string) {
     this.FirstName = firstName;
     this.LastName = lastName;
     this.Role = role;
     this.uuid = uuid;
   }
+
 
   @IsNotEmpty()
   FirstName: string;
